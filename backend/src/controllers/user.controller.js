@@ -6,30 +6,27 @@ import nodemailer from 'nodemailer'
 const signupUser = async(req,res)=>{
     try {
         const { userName, email, password, imageUrl } = req.body;
-
-        if(!userName || !email || !password || !imageUrl
-            // [userName, email, password, imageUrl].some((field)=>field?.trim() === "")
-        ){
+        
+        if( !userName || !email || !password || !imageUrl ){
             return res.status(400).json({
                 message: 'All fields are required'
             })
         }
 
-        const existUser = await User.find({
-            $or: [{ userName }, { email }]
-        });
-
-        if(existUser){
-            return res.status(409).json({
-                message: 'User with email or username already exists'
-            })
+        const existUser = await User.findOne({email});
+        
+        if (existUser) {
+          return res.status(409).json({
+            message: "User with email already exists",
+          });
         }
 
-        const otp = Math.floor(Math.random() * 9000) + 1000;
 
+        const otp = Math.floor(Math.random() * 9000) + 1000;
+        
         // hash password
         const hashPass = bcrypt.hashSync(password, 10);
-
+        
         // sent the object in the database
         const objToSend = {
             userName,
@@ -40,8 +37,9 @@ const signupUser = async(req,res)=>{
         };
 
         const createUser = await User.create(objToSend);
+        
         const user = await User.findById(createUser._id).select('-password -otp')
-
+        console.log(user)
         let token = jwt.sign(
         {
           id: user._id,
@@ -82,16 +80,96 @@ const signupUser = async(req,res)=>{
         // Signup user
         return res.status(200).json({
             message: 'User registered successfully',
-            user,
-            token
         })
 
     } catch (error) {
         return res.status(500).json({
             message: 'An error occur while registering user',
-            error
+            error : error.message,
         })
     }
+}
+
+const loginUser = async (req, res)=>{
+  try {
+    const { email, password } = req.body;
+
+    if( !email || !password ){
+      return res.status(401).json({
+        message: 'Required field is missing'
+      })
+    }
+
+    const existUser = await User.findOne({email});
+
+    if(!existUser){
+      return res.status(400).json({
+        message: 'Invalid credentials'
+      })
+    }
+
+    if(!existUser.isActive){
+      return res.status(400).json({
+        message: 'Please verify your email'
+      })
+    }
+
+    const checkPass = await bcrypt.compare(password, existUser.password);
+
+    if(!checkPass){
+      return res.status(400).json({
+        message: 'Invalid credentials'
+      })
+    }
+
+    let token = jwt.sign(
+    { id: existUser._id },
+    process.env.JWT_SECRET, 
+    { expiresIn: "1h" }
+    );
+
+    
+    const user = await User.findById(existUser._id).select("-password -otp")
+
+    return res.status(201).json({
+      message: 'User login successfully',
+      token,
+      user
+    })
+
+  } catch (error) {
+    return res.status(500).json({
+      message: 'An error occur while login user',
+      error: error.message
+    })
+  }
+}
+
+const verifyUser = async (req, res)=>{
+
+  try {
+    const { email, otp } = req.body;
+    const existUser = await User.findOne({email});
+    
+    if(existUser.otp !== otp){
+      return res.status(401).json({
+        message: 'OTP not match',
+      })
+    }
+
+    existUser.isActive = true;
+    await existUser.save();
+
+    return res.status(201).json({
+      message: 'Email verified successfully'
+    })
+
+  } catch (error) {
+    return res.status(600).json({
+      message: 'An error occur while verifying user',
+      error: error.message
+    })
+  }
 }
 
 const uploadImage = async(req,res)=>{
@@ -107,4 +185,4 @@ const uploadImage = async(req,res)=>{
     }
 }
 
-export { signupUser, uploadImage }
+export { signupUser, uploadImage, loginUser, verifyUser }
