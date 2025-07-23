@@ -7,8 +7,8 @@ const signupUser = async(req,res)=>{
     try {
         const { userName, email, password, imageUrl } = req.body;
 
-        if(
-            [userName, email, password, imageUrl].some((field)=>field?.trim() === "")
+        if(!userName || !email || !password || !imageUrl
+            // [userName, email, password, imageUrl].some((field)=>field?.trim() === "")
         ){
             return res.status(400).json({
                 message: 'All fields are required'
@@ -19,7 +19,7 @@ const signupUser = async(req,res)=>{
             $or: [{ userName }, { email }]
         });
 
-        if(!existUser){
+        if(existUser){
             return res.status(409).json({
                 message: 'User with email or username already exists'
             })
@@ -40,7 +40,7 @@ const signupUser = async(req,res)=>{
         };
 
         const createUser = await User.create(objToSend);
-        const user = User.findById(createUser._id).select('-password -otp')
+        const user = await User.findById(createUser._id).select('-password -otp')
 
         let token = jwt.sign(
         {
@@ -88,7 +88,8 @@ const signupUser = async(req,res)=>{
 
     } catch (error) {
         return res.status(500).json({
-            message: 'An error occur while registering user'
+            message: 'An error occur while registering user',
+            error
         })
     }
 }
