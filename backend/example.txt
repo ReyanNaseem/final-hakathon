@@ -1,0 +1,9 @@
+PORT=8080
+MONGODB_URI=mongodb+srv://reyannaseem:reyan123@cluster0.howup.mongodb.net
+CLOUDINARY_NAME=djvriibp7
+CLOUDINARY_API_KEY=227496898336234
+CLOUDINARY_API_SECRET=rx3xM9wyDmBh77UCU4YrqN8S72E
+CORS_ORIGIN=*
+JWT_SECRET=Reyan@123
+EMAIL=reyannaseem516@gmail.com
+EMAIL_PASS=tpga quit wuro mssq
