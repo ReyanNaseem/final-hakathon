@@ -1,112 +1,88 @@
-import React from "react";
+import { FaGithub, FaTwitter, FaLinkedin, FaDiscord } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
+import { BsGithub } from 'react-icons/bs';
+import { AiOutlineEyeInvisible } from 'react-icons/ai';
 
-const Login = () => {
+const Signup = ()=> {
   return (
-    <div className="flex h-screen">
-      {/* Left Section - Form */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center px-10">
-        <a href="/dashboard" className="text-sm text-gray-500 mb-6">
-          &larr; Back to dashboard
-        </a>
-        <h2 className="text-3xl font-bold mb-2">Sign In</h2>
-        <p className="text-gray-500 mb-6">
-          Enter your email and password to sign in!
-        </p>
-
-        <div className="flex gap-4 mb-6">
-          <button className="flex-1 flex items-center justify-center gap-2 border rounded-md py-2">
-            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-5 h-5" />
-            Sign in with Google
-          </button>
-          <button className="flex-1 flex items-center justify-center gap-2 border rounded-md py-2">
-            <img src="https://www.svgrepo.com/show/508806/twitter.svg" alt="X" className="w-5 h-5" />
-            Sign in with X
-          </button>
-        </div>
-
-        <div className="relative text-center my-4">
-          <hr className="border-gray-300" />
-          <span className="absolute bg-white px-3 text-sm text-gray-500 left-1/2 transform -translate-x-1/2 -top-2">
-            Or
-          </span>
-        </div>
-
-        <form className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Email<span className="text-red-500">*</span>
-            </label>
-            <input
-              type="email"
-              placeholder="info@gmail.com"
-              className="w-full border rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring focus:ring-blue-300"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Password<span className="text-red-500">*</span>
-            </label>
-            <input
-              type="password"
-              placeholder="Enter your password"
-              className="w-full border rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring focus:ring-blue-300"
-            />
-          </div>
-
-          <div className="flex justify-between items-center text-sm">
-            <label className="flex items-center gap-2">
-              <input type="checkbox" className="form-checkbox" />
-              Keep me logged in
-            </label>
-            <a href="#" className="text-blue-600 hover:underline">
-              Forgot password?
-            </a>
-          </div>
-
-          <button className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">
-            Sign In
-          </button>
-
-          <p className="text-center text-sm text-gray-600">
-            Don’t have an account?{" "}
-            <a href="/signup" className="text-blue-600 hover:underline">
-              Sign Up
-            </a>
+    <div className="h-[100vh] w-full flex font-sans">
+      {/* Left Side */}
+      <div className="w-1/2 h-full m-0 bg-[#2C6DD2] text-white flex flex-col justify-between p-10">
+        <div>
+          <h1 className="text-4xl font-bold">LOREM IPSUM DOLOR</h1>
+          <p className="mt-4 text-sm">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis cursus gravida ac.
           </p>
-        </form>
+        </div>
+        <div className="flex gap-6 text-2xl">
+          <FaGithub className="cursor-pointer" />
+          <FaTwitter className="cursor-pointer" />
+          <FaLinkedin className="cursor-pointer" />
+          <FaDiscord className="cursor-pointer" />
+        </div>
       </div>
 
-      {/* Right Section - Info */}
-      <div className="hidden md:flex w-1/2 items-center justify-center bg-[#0f172a] text-white relative">
-        <div className="text-center px-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="bg-blue-600 p-2 rounded-md">
-              <svg className="w-6 h-6" fill="none" stroke="white" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h4l3 8 4-16 3 8h4" />
-              </svg>
+      {/* Right Side */}
+      <div className="w-1/2 bg-white flex items-center justify-center p-10">
+        <div className="w-full max-w-md">
+          <h2 className="text-2xl font-bold mb-6">Create Account</h2>
+          <form className="space-y-4">
+            <div>
+              <input
+                type="text"
+                placeholder="Full Name"
+                className="w-full border-b border-gray-400 outline-none py-2"
+              />
             </div>
-            <h1 className="text-2xl font-bold">TailAdmin</h1>
-          </div>
-          <p className="text-sm text-gray-300">
-            Free and Open-Source Tailwind CSS Admin Dashboard Template
+            <div>
+              <input
+                type="email"
+                placeholder="Email Address"
+                className="w-full border-b border-gray-400 outline-none py-2"
+              />
+            </div>
+            <div className="relative">
+              <input
+                type="password"
+                placeholder="Password"
+                className="w-full border-b border-gray-400 outline-none py-2 pr-8"
+              />
+              <AiOutlineEyeInvisible className="absolute right-2 top-3 text-gray-500" />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-[#2C6DD2] text-white py-2 rounded-md font-semibold"
+            >
+              Create Account
+            </button>
+          </form>
+
+          <p className="mt-4 text-sm text-gray-600">
+            Already have an account?{' '}
+            <span className="text-blue-600 cursor-pointer">Log in</span>
           </p>
-        </div>
 
-        {/* Grid background effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent opacity-10 grid grid-cols-12 grid-rows-6 gap-4 z-0" />
+          <div className="flex items-center my-4">
+            <hr className="flex-grow border-gray-300" />
+            <span className="mx-2 text-sm text-gray-500">or Sign In with</span>
+            <hr className="flex-grow border-gray-300" />
+          </div>
 
-        {/* Theme switch icon */}
-        <div className="absolute bottom-6 right-6">
-          <button className="bg-blue-600 p-3 rounded-full hover:bg-blue-700">
-            <svg className="w-5 h-5 text-white" fill="none" stroke="white" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m6.364 1.636l-.707.707M21 12h-1m-1.636 6.364l-.707-.707M12 21v-1m-6.364-1.636l.707-.707M3 12h1m1.636-6.364l.707.707" />
-            </svg>
-          </button>
+          <div className="flex gap-4">
+            <button className="flex items-center gap-2 border border-gray-400 px-4 py-2 rounded-md w-full justify-center">
+              <FcGoogle className="text-xl" />
+              <span className="text-sm">Sign up with Google</span>
+            </button>
+            <button className="flex items-center gap-2 border border-gray-400 px-4 py-2 rounded-md w-full justify-center">
+              <BsGithub className="text-xl" />
+              <span className="text-sm">Sign up with Github</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
-export default Login;
+export default Signup;
