@@ -12,6 +12,8 @@ export default function Signup() {
   // const [imageUrl, setimageUrl] = useState('');
   const [imageFile, setImageFile] = useState(null)
 
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+
 const handleSubmit = async(e)=>{
   e.preventDefault();
 
@@ -21,7 +23,7 @@ const handleSubmit = async(e)=>{
     imageData.append("image", imageFile);
 
     const res = await axios.post(
-      `http://localhost:8080/api/v1/users/upload`,
+      `${baseUrl}/upload`,
       imageData
     )
 
@@ -34,7 +36,7 @@ const handleSubmit = async(e)=>{
       imageUrl: imageurl,
     };
 
-  await axios.post('http://localhost:8080/api/v1/users/signup',sendData)
+  await axios.post(`${baseUrl}/signup`,sendData)
   .then((res)=>{
     console.log(res);
     toast.success(res.data.message)

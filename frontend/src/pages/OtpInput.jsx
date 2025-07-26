@@ -44,7 +44,7 @@ const OtpInput = () => {
     if (fullOtp.length === length) {
       try {
         console.log("first")
-        const res = await axios.post(`http://localhost:8080/api/v1/users/verify`, {
+        const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/verify`, {
           email: email,
           otp: Number(fullOtp)
         });
