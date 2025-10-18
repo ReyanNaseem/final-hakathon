@@ -22,7 +22,8 @@ export default function Login() {
         navigate('/home')
       })
       .catch((err) => {
-        toast.error(err.response.data.message)
+        // toast.error(err.response.data.message)
+        console.log(err.response)
       })
   }
 
