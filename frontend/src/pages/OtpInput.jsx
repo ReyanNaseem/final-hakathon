@@ -79,7 +79,7 @@ const OtpInput = () => {
   return (
     <div className="h-screen flex items-center justify-center bg-[#EDF4F2] px-4">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md text-center">
-        <h1 className="text-3xl font-bold text-[#31473A] mb-2">OTP Verification</h1>
+        <h1 className="text-3xl font-bold text-green-600 mb-2">OTP Verification</h1>
         <p className="text-gray-600 mb-6">
           Please enter the 4-digit code sent to your email or phone number.
         </p>

@@ -7,7 +7,7 @@ export const IsLogin = () => {
   return (
     <div>
         {
-            token?<Navigate to={'/home'}/>: <Outlet/>
+            token?<Navigate to={'/dashboard'}/>: <Outlet/>
         }
     </div>
   )
